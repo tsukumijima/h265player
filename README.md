@@ -1,7 +1,11 @@
 
 このフォークは、もともと H.265 をブラウザで再生するために作られた h265player に、MPEG2Video の再生機能を追加したものです。  
 暫定的な実装のため、現時点では MPEG2Video の再生と引き換えに H.265 が再生できなくなってしまっています。  
-demo/demo4.html に MPEG2Video の再生デモを追加してありますので、ぜひ試してみてください（ localhost か HTTPS である必要があります）。
+demo/demo4.html に MPEG2Video の再生デモを追加してありますので、ぜひ試してみてください。
+
+> SharedArrayBuffer の関係で、デモを動作させるには localhost か HTTPS である必要があります。  
+> また、HTTP ヘッダーに `Cross-Origin-Embedder-Policy: require-corp` と `Cross-Origin-Opener-Policy: same-origin` を追加する必要があります。  
+> Apache の場合は .htaccess や apache2.conf などに適宜 `Header add Cross-Origin-Embedder-Policy require-corp` と `Header add Cross-Origin-Opener-Policy same-origin` を追加してください。
 
 --------
 
