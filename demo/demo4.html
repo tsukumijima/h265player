@@ -1,0 +1,86 @@
+<!Doctype html>
+<html xmlns=http://www.w3.org/1999/xhtml> <head>
+<meta http-equiv=Content-Type content="text/html;charset=utf-8">
+<meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1">
+<meta content=always name=referrer>
+<link rel="shortcut icon" href=/favicon.ico type=image/x-icon> <title>MPEG2Video Player Online Demo</title>
+<link rel="stylesheet" href="../dist/goldplay-h265.css">
+<script src="../dist/goldplay-h265-sdk.js"></script>
+<style>
+  #PlayerWrapper {
+    width: 1000px;
+    margin: 20px auto 0 auto;
+  }
+
+  .play-container {
+    width: 1000px;
+    height: 650px;
+  }
+
+  .inline {
+    display: inline-block;
+    width: 50px;
+  }
+
+  .goldplay__container-fullscreen {
+    overflow: hidden;
+    max-height: 100vh;
+  }
+
+  .goldplay__screen--container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .goldplay__screen--canvas {
+    position: relative !important;
+    top: 0px !important;
+    left: 0px !important;
+    transform: none !important;
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: 16 / 9;
+    margin: auto;
+  }
+</style>
+</head>
+
+<body>
+  <div id="PlayerWrapper">
+    <h3>MPEG2Video Player <b>Online Demo</b></h3>
+    <div class="play-container"></div>
+  </div>
+  <br clear="all">
+  <br>
+  <script>
+    (function (win, doc) {
+      const Config = {
+        get basePath() {
+          let path = win.location.origin
+          let pathname = win.location.pathname
+          let demoIdx = pathname.lastIndexOf('/demo/')
+          return path + pathname.substr(0, demoIdx)
+        },
+        get buildPath() {
+          return this.basePath + '/dist/'
+        },
+        get libPath() {
+          return this.buildPath + 'lib/'
+        },
+        get src() {
+          return this.basePath + '/data/video4/playlist.m3u8'
+        }
+      }
+      let el = doc.querySelector('.play-container')
+      let player = new GoldPlay(el, {
+        sourceURL: Config.src,
+        type: 'HLS',
+        libPath: Config.libPath,
+        playBackRate: 1,
+      })
+      // player.destroy()
+    })(window, document)
+  </script>
+</body>
+
+</html>
