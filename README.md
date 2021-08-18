@@ -1,3 +1,10 @@
+
+このフォークは、もともと H.265 をブラウザで再生するために作られた h265player に、MPEG2Video の再生機能を追加したものです。  
+暫定的な実装のため、現時点では MPEG2Video の再生と引き換えに H.265 が再生できなくなってしまっています。  
+demo/demo4.html に MPEG2Video の再生デモを追加してありますので、ぜひ試してみてください（ localhost か HTTPS である必要があります）。
+
+--------
+
 <img src="./dist/image/goldvideo-logo-w.png" width="250"></img>
 
 [English英文版](./README_en.md)
