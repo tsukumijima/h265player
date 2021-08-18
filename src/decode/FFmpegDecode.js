@@ -12,6 +12,7 @@ export default class FFmpegDecode {
   }
   openDecode() {
     let that = this
+    let videoSize = 0
     let videoCallback = Module.addFunction(function(
       addr_y,
       addr_u,
@@ -23,6 +24,7 @@ export default class FFmpegDecode {
       height,
       pts
     ) {
+      console.log("[%d]In video callback, size = %d * %d, pts = %d", ++videoSize, width, height, pts)
       let out_y = HEAPU8.subarray(addr_y, addr_y + stride_y * height)
       let out_u = HEAPU8.subarray(addr_u, addr_u + (stride_u * height) / 2)
       let out_v = HEAPU8.subarray(addr_v, addr_v + (stride_v * height) / 2)
@@ -38,8 +40,17 @@ export default class FFmpegDecode {
         pts
       }
       that.result.push(obj)
-    })
-    Module._openDecoder(videoCallback, 1)
+    },
+      // signature string
+      // ref: https://github.com/sonysuqin/WasmVideoPlayer/issues/38
+      'viiiiiiiii',
+    )
+
+    const LOG_LEVEL_WASM = 2;
+    const DECODER_H264 = 0;
+    const DECODER_H265 = 1;
+    const DECODER_MPEG2VIDEO = 2;
+    Module._openDecoder(DECODER_MPEG2VIDEO, videoCallback, LOG_LEVEL_WASM)
   }
   decodeData(pes, pts) {
     let fileSize = pes.length
